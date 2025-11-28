@@ -1,0 +1,20 @@
+public ActionResult<int> Get(int id)
+        {
+            //transient error simulation
+            try
+            {
+                counter++;
+                int remainder = counter % 3;
+                if (remainder > 0) {
+                    throw new Exception();
+                }
+                return GetStudentGrade();
+            }
+            catch {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+***Explanation**
+
+Here essentially we are checking if the call made is a multiple of 3, we send back the grade..if not we throw an exception

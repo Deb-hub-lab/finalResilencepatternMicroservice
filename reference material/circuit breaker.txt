@@ -1,0 +1,32 @@
+using Microsoft.OpenApi.Models;
+using Polly.Extensions.Http;
+using Polly;
+using System.Text;
+using StudentAPI.Services;
+
+namespace StudentAPI.ApiMiddleware
+{
+    public static class ApiMiddleware
+    {
+        public static void AddGradeServicesToApiContainer(this IServiceCollection services,
+                                                       ConfigurationManager Configuration)
+        {
+
+            //.AddPolicyHandler(GetCircuitBreakerPolicy());
+            //.AddPolicyHandler(GetRetryPolicy());
+
+
+        }
+
+        private static IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy()
+        {
+            return HttpPolicyExtensions
+                           .HandleTransientHttpError()
+                           .CircuitBreakerAsync(
+                       2,
+                       TimeSpan.FromSeconds(30));
+
+
+        }
+    }
+}

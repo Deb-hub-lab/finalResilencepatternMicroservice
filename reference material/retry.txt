@@ -1,0 +1,36 @@
+using Microsoft.OpenApi.Models;
+using Polly.Extensions.Http;
+using Polly;
+using System.Text;
+using StudentAPI.Services;
+
+namespace StudentAPI.ApiMiddleware
+{
+    public static class ApiMiddleware
+    {
+        public static void AddGradeServicesToApiContainer(this IServiceCollection services,
+                                                       ConfigurationManager Configuration)
+        {
+
+            //.AddPolicyHandler(GetRetryPolicy());
+
+
+        }
+
+        private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+        {
+            return HttpPolicyExtensions
+                           .HandleTransientHttpError()
+                           .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
+                           .WaitAndRetryAsync(2, retryAttempt => TimeSpan.FromSeconds(2));
+        }
+
+    }
+}
+
+
+-------------
+
+A popular approach is Polly exponential backoff with jitter. Exponential backoff means we set the gaps between each retry larger and larger as we progress through retries. Normally, it is set to be the power of a number, e.g. 2^ n, where n is the number of retry. So for 4 retries, we get 2 ^ 1 = 2 seconds, then 2 ^ 2 = 4 seconds, then 2 ^ 3 = 8 seconds, then 2 ^ 4 = 16
+
+For jitter strategy:retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
