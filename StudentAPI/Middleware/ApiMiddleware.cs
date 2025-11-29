@@ -24,6 +24,17 @@ namespace StudentAPI.Middleware
             //.AddPolicyHandler(GetCircuitBreakerPolicy()); // LAST (innermost);
             //.AddPolicyHandler(GetRetryPolicy());
 
+            // -------------------------------
+            // 2️⃣ Attendance API (New)
+            // -------------------------------
+            services.AddHttpClient<IAttendanceService, AttendanceService>(options =>
+            {
+                options.BaseAddress = new Uri(Configuration["AttendanceApiConfig:BaseUrl"]);
+            })
+            .AddPolicyHandler(GetAttendanceFallbackPolicy())      // different fallback is OK
+            .AddPolicyHandler(GetRetryPolicy())
+            .AddPolicyHandler(GetCircuitBreakerPolicy());
+
         }
 
         private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
@@ -83,43 +94,7 @@ namespace StudentAPI.Middleware
         //                   await Task.CompletedTask;
         //               });
         //}
-        //private static IAsyncPolicy<HttpResponseMessage> GetFallbackPolicy()
-        //{
-        //    return Policy<HttpResponseMessage>
-        //        .Handle<HttpRequestException>()
-        //        .OrResult(r => !r.IsSuccessStatusCode)
-        //        .FallbackAsync(
-        //            fallbackValue: new HttpResponseMessage(System.Net.HttpStatusCode.OK)
-        //            {
-        //                Content = new StringContent(
-        //                    "{\"message\":\"Fallback – Grade service unavailable\"}",
-        //                    System.Text.Encoding.UTF8,
-        //                    "application/json")
-        //            },
-        //            onFallbackAsync: async (outcome, ctx) =>
-        //            {
-        //                Console.WriteLine("🔥 FALLBACK TRIGGERED for Grade API");
-        //                await Task.CompletedTask;
-        //            });
-        //}
-
-        //private static IAsyncPolicy<HttpResponseMessage> GetFallbackPolicy()
-        //{
-        //    return Policy<HttpResponseMessage>
-        //        .Handle<Exception>()
-        //        .OrResult(r => !r.IsSuccessStatusCode)
-        //        .FallbackAsync(
-        //            fallbackValue: new HttpResponseMessage(HttpStatusCode.OK)
-        //            {
-        //                Content = new StringContent("Fallback: returning default grade")
-        //            },
-        //            onFallbackAsync: (outcome, context) =>
-        //            {
-        //                Console.WriteLine(">>> FALLBACK TRIGGERED <<<");
-        //                return Task.CompletedTask;
-        //            }
-        //        );
-        //}
+       
         private static IAsyncPolicy<HttpResponseMessage> GetFallbackPolicy()
         {
             return Policy<HttpResponseMessage>
@@ -145,7 +120,23 @@ namespace StudentAPI.Middleware
                 );
         }
 
-
+        private static IAsyncPolicy<HttpResponseMessage> GetAttendanceFallbackPolicy()
+        {
+            return Policy<HttpResponseMessage>
+                .Handle<Exception>()
+                .OrResult(r => !r.IsSuccessStatusCode)
+                .FallbackAsync(
+                    fallbackValue: new HttpResponseMessage(HttpStatusCode.OK)
+                    {
+                        Content = new StringContent("0")   // default attendance
+                    },
+                    onFallbackAsync: (outcome, context) =>
+                    {
+                        Console.WriteLine("🔥 Attendance API Fallback Triggered");
+                        return Task.CompletedTask;
+                    }
+                );
+        }
 
 
     }

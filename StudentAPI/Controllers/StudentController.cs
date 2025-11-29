@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using StudentAPI.Models;
 using StudentAPI.Services;
 using System.Diagnostics;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace StudentAPI.Controllers
 {
@@ -11,9 +13,11 @@ namespace StudentAPI.Controllers
     public class StudentController : ControllerBase
     {
         private readonly IGradeService _gradeService;
-        public StudentController(IGradeService gradeService)
+        private readonly IAttendanceService _attendanceService;
+        public StudentController(IGradeService gradeService, IAttendanceService attendanceService)
         {
             _gradeService = gradeService;
+            _attendanceService = attendanceService;
         }
 
         [HttpGet]
@@ -45,6 +49,27 @@ namespace StudentAPI.Controllers
             student.Grade = grade;
 
             return student;
+        }
+
+        [HttpGet("summary/{studentId}")]
+        public async Task<IActionResult> GetSummary(Guid studentId)
+        {
+            //int grade = await _gradeService.GetGradeAsync(studentId);
+            int attendance = await _attendanceService.GetMonthlyAttendanceAsync(Guid.Parse("11111111-1111-1111-1111-111111111107")); // "IntToHashedGuid(studentId));
+
+            return Ok(new
+            {
+                StudentId = studentId,
+                Grade = 2,
+                MonthlyAttendance = attendance
+            });
+        }
+
+        public static Guid IntToHashedGuid(int value)
+        {
+            using var md5 = MD5.Create();
+            byte[] hash = md5.ComputeHash(Encoding.UTF8.GetBytes(value.ToString()));
+            return new Guid(hash);
         }
     }
 }
