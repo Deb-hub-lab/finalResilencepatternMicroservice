@@ -1,0 +1,178 @@
+﻿/* -------------------------------
+   GLOBAL DARK THEME
+--------------------------------*/
+body {
+    background-color: #1e1e2e !important;
+    color: #e0e0e0 !important;
+    font-family: "Segoe UI", Roboto, sans-serif !important;
+}
+
+/* -------------------------------
+   NAVBAR
+--------------------------------*/
+.navbar {
+    background: #242434 !important;
+    border-bottom: 1px solid #444 !important;
+}
+
+.navbar-brand {
+    color: #58a6ff !important;
+    font-size: 1.4rem !important;
+    font-weight: bold;
+}
+
+    .navbar-brand:hover {
+        color: #79c0ff !important;
+    }
+
+/* -------------------------------
+   MAIN LAYOUT CONTAINER
+--------------------------------*/
+.container {
+    margin-top: 20px !important;
+}
+
+/* -------------------------------
+   CARDS
+--------------------------------*/
+.hc-card {
+    background: #2a2a3b !important;
+    border-radius: 16px !important;
+    border: 1px solid #3c3c4d !important;
+    padding: 20px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.35) !important;
+}
+
+.hc-card-header {
+    border-bottom: 1px solid #3c3c4d !important;
+    margin-bottom: 12px !important;
+}
+
+    .hc-card-header h2 {
+        color: #e0e0e0 !important;
+        font-weight: 600 !important;
+    }
+
+/* -------------------------------
+   TABLES
+--------------------------------*/
+table {
+    background: #252535 !important;
+    color: #d0d0d0 !important;
+}
+
+    table th {
+        background: #303045 !important;
+        color: #b0b0b0 !important;
+    }
+
+    table td {
+        background: #2b2b3d !important;
+        border-top: 1px solid #404050 !important;
+    }
+
+/* -------------------------------
+   STATUS BADGES (Healthy / Unhealthy)
+--------------------------------*/
+.hc-status-healthy {
+    background-color: #28a745 !important;
+    color: white !important;
+    padding: 5px 12px !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+}
+
+.hc-status-unhealthy {
+    background-color: #dc3545 !important;
+    color: white !important;
+    padding: 5px 12px !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+}
+
+.hc-status-degraded {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+    padding: 5px 12px !important;
+    border-radius: 12px !important;
+}
+
+/* -------------------------------
+   TIMELINE / HISTORY SECTION
+--------------------------------*/
+.hc-history-item {
+    background: #242435 !important;
+    border: 1px solid #3c3c4d !important;
+    border-radius: 12px !important;
+    padding: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+/* ==========================================================
+   Replace HealthChecks UI Logo (Works for v9)
+   ========================================================== */
+
+/* Hide the default text logo completely */
+.navbar .navbar-brand span {
+    display: none !important;
+}
+
+/* Set space for custom logo */
+.navbar .navbar-brand {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 180px; /* Adjust size */
+    height: 40px;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+    /* Insert your custom logo */
+    .navbar .navbar-brand::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-image: url("/images/mylogo.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center center;
+        display: block;
+    }
+
+/* ============================
+   CUSTOM ROUNDED SPINNER (v9)
+   ============================ */
+
+/* Hide default spinner lines */
+.lds-spinner div {
+    background: none !important;
+    transform-origin: 40px 40px !important;
+}
+
+/* Create a clean, circular loader */
+.lds-spinner {
+    width: 80px !important;
+    height: 80px !important;
+    border: 6px solid #d1d1d1;
+    border-top-color: #4CAF50; /* CHANGE COLOR HERE */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+
+/* Spin animation */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* -------------------------------
+   FOOTER
+--------------------------------*/
+.footer {
+    color: #808080 !important;
+    text-align: center;
+    margin-top: 20px;
+}

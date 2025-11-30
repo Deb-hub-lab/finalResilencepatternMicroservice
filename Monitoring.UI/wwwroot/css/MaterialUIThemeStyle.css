@@ -1,0 +1,249 @@
+﻿/* ==========================================================
+   MATERIAL DESIGN — ANIMATED THEME FOR HEALTHCHECKS UI
+   ========================================================== */
+
+:root {
+    --primary: #5b35ff;
+    --primary-dark: #3a23b8;
+    --primary-light: #c8b6ff;
+    --surface: #ffffff;
+    --background: #f7f7f7;
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --success: #0f9d58;
+    --warning: #f4b400;
+    --danger: #db4437;
+    --shadow-1: 0px 3px 8px rgba(0, 0, 0, 0.12);
+    --shadow-2: 0px 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+/* -----------------------------------------------------------
+   GLOBAL STYLES
+----------------------------------------------------------- */
+
+body {
+    background-color: var(--background) !important;
+    font-family: "Roboto", "Segoe UI", Arial, sans-serif !important;
+    color: var(--text-primary) !important;
+    animation: fadeIn 0.6s ease forwards;
+    opacity: 0;
+}
+
+/* Smooth global fade */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* -----------------------------------------------------------
+   NAVBAR
+----------------------------------------------------------- */
+
+.navbar, .hc-header {
+    background: var(--surface) !important;
+    box-shadow: var(--shadow-1) !important;
+    animation: slideDown 0.7s ease forwards;
+    transform: translateY(-20px);
+    opacity: 0;
+}
+
+@keyframes slideDown {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* -----------------------------------------------------------
+   CARDS (MAIN DASHBOARD)
+----------------------------------------------------------- */
+
+.hc-card {
+    background-color: var(--surface) !important;
+    border-radius: 18px !important;
+    padding: 22px !important;
+    border: none !important;
+    box-shadow: var(--shadow-1) !important;
+    /* entry animation */
+    animation: cardEnter 0.8s ease forwards;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+@keyframes cardEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* lift on hover */
+.hc-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-2) !important;
+}
+
+/* glow for status badges */
+.badge-success {
+    background-color: var(--success) !important;
+    animation: glowGreen 2s infinite ease-in-out;
+}
+
+.badge-warning {
+    background-color: var(--warning) !important;
+    animation: glowYellow 2s infinite ease-in-out;
+}
+
+.badge-danger {
+    background-color: var(--danger) !important;
+    animation: glowRed 2s infinite ease-in-out;
+}
+
+@keyframes glowGreen {
+    0% {
+        box-shadow: 0 0 0px rgba(15,157,88,0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 10px rgba(15,157,88,0.5);
+    }
+
+    100% {
+        box-shadow: 0 0 0px rgba(15,157,88,0.3);
+    }
+}
+
+@keyframes glowYellow {
+    0% {
+        box-shadow: 0 0 0px rgba(244,180,0,0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 10px rgba(244,180,0,0.5);
+    }
+
+    100% {
+        box-shadow: 0 0 0px rgba(244,180,0,0.3);
+    }
+}
+
+@keyframes glowRed {
+    0% {
+        box-shadow: 0 0 0px rgba(219,68,55,0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 10px rgba(219,68,55,0.5);
+    }
+
+    100% {
+        box-shadow: 0 0 0px rgba(219,68,55,0.3);
+    }
+}
+
+/* -----------------------------------------------------------
+   RIPPLE EFFECT
+----------------------------------------------------------- */
+
+.hc-card,
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+    .hc-card::after,
+    .btn::after {
+        content: "";
+        position: absolute;
+        background: rgba(0,0,0,0.06);
+        border-radius: 50%;
+        width: 5px;
+        height: 5px;
+        transform: scale(1);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform .6s ease, opacity .6s ease;
+    }
+
+    .hc-card:hover::after,
+    .btn:hover::after {
+        opacity: 1;
+        transform: scale(60);
+    }
+
+/* -----------------------------------------------------------
+   TABLE ANIMATIONS
+----------------------------------------------------------- */
+
+table {
+    background: var(--surface) !important;
+    border-radius: 12px !important;
+    box-shadow: var(--shadow-1) !important;
+    animation: fadeIn 0.8s ease forwards;
+    opacity: 0;
+}
+
+    table tr {
+        animation: rowFade 0.6s ease forwards;
+        opacity: 0;
+    }
+
+@keyframes rowFade {
+    to {
+        opacity: 1;
+    }
+}
+
+/* -----------------------------------------------------------
+   BUTTONS (Animated)
+----------------------------------------------------------- */
+
+.btn {
+    border-radius: 12px !important;
+    padding: 10px 20px !important;
+    font-weight: 600 !important;
+    transition: transform 0.15s ease, box-shadow 0.2s ease !important;
+}
+
+    .btn:active {
+        transform: scale(0.95);
+    }
+
+.btn-primary {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+    .btn-primary:hover {
+        background: var(--primary-dark) !important;
+        box-shadow: var(--shadow-2) !important;
+    }
+
+/* -----------------------------------------------------------
+   LOADING ANIMATION (Pulse)
+----------------------------------------------------------- */
+
+.hc-loader {
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}

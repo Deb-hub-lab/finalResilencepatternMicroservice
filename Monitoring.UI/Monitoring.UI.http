@@ -1,0 +1,6 @@
+@Monitoring.UI_HostAddress = http://localhost:5296
+
+GET {{Monitoring.UI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

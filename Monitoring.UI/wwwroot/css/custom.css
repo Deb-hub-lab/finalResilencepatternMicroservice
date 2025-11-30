@@ -1,0 +1,118 @@
+﻿/* -------------------------------
+   GLOBAL DARK THEME
+--------------------------------*/
+body {
+    background-color: #1e1e2e !important;
+    color: #e0e0e0 !important;
+    font-family: "Segoe UI", Roboto, sans-serif !important;
+}
+
+/* -------------------------------
+   NAVBAR
+--------------------------------*/
+.navbar {
+    background: #242434 !important;
+    border-bottom: 1px solid #444 !important;
+}
+
+.navbar-brand {
+    color: #58a6ff !important;
+    font-size: 1.4rem !important;
+    font-weight: bold;
+}
+
+    .navbar-brand:hover {
+        color: #79c0ff !important;
+    }
+
+/* -------------------------------
+   MAIN LAYOUT CONTAINER
+--------------------------------*/
+.container {
+    margin-top: 20px !important;
+}
+
+/* -------------------------------
+   CARDS
+--------------------------------*/
+.hc-card {
+    background: #2a2a3b !important;
+    border-radius: 16px !important;
+    border: 1px solid #3c3c4d !important;
+    padding: 20px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.35) !important;
+}
+
+.hc-card-header {
+    border-bottom: 1px solid #3c3c4d !important;
+    margin-bottom: 12px !important;
+}
+
+    .hc-card-header h2 {
+        color: #e0e0e0 !important;
+        font-weight: 600 !important;
+    }
+
+/* -------------------------------
+   TABLES
+--------------------------------*/
+table {
+    background: #252535 !important;
+    color: #d0d0d0 !important;
+}
+
+    table th {
+        background: #303045 !important;
+        color: #b0b0b0 !important;
+    }
+
+    table td {
+        background: #2b2b3d !important;
+        border-top: 1px solid #404050 !important;
+    }
+
+/* -------------------------------
+   STATUS BADGES (Healthy / Unhealthy)
+--------------------------------*/
+.hc-status-healthy {
+    background-color: #28a745 !important;
+    color: white !important;
+    padding: 5px 12px !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+}
+
+.hc-status-unhealthy {
+    background-color: #dc3545 !important;
+    color: white !important;
+    padding: 5px 12px !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+}
+
+.hc-status-degraded {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+    padding: 5px 12px !important;
+    border-radius: 12px !important;
+}
+
+/* -------------------------------
+   TIMELINE / HISTORY SECTION
+--------------------------------*/
+.hc-history-item {
+    background: #242435 !important;
+    border: 1px solid #3c3c4d !important;
+    border-radius: 12px !important;
+    padding: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+/* -------------------------------
+   FOOTER
+--------------------------------*/
+.footer {
+    color: #808080 !important;
+    text-align: center;
+    margin-top: 20px;
+}
