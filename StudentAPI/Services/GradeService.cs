@@ -16,7 +16,9 @@ namespace StudentAPI.Services
         // Existing Method (fixed URL issue)
         public async Task<int> GetStudentGrade(int id)
         {
-            string url = _httpClient.BaseAddress.ToString() + Convert.ToString(id);
+            //string url = _httpClient.BaseAddress.ToString() + Convert.ToString(id);
+            string url = $"{_httpClient.BaseAddress?.ToString() ?? string.Empty}{id}";
+
             return await _httpClient.GetFromJsonAsync<int>(url);
             //return await _httpClient.GetFromJsonAsync<int>($"api/grade/{id}");
         }

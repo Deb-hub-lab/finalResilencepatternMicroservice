@@ -4,6 +4,7 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Polly;
 using Polly.Extensions.Http;
 using StudentAPI.Middleware;
+using StudentAPI.Repositories;
 using StudentAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddGradeServicesToApiContainer(builder.Configuration);
 builder.Services.AddControllers();
+builder.Services.AddMemoryCache(); // enable in-memory caching
+
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddSingleton<CacheTokenProvider>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

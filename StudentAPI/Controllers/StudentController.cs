@@ -14,10 +14,13 @@ namespace StudentAPI.Controllers
     {
         private readonly IGradeService _gradeService;
         private readonly IAttendanceService _attendanceService;
-        public StudentController(IGradeService gradeService, IAttendanceService attendanceService)
+        private readonly IStudentService _service;
+        public StudentController(IStudentService service,IGradeService gradeService, IAttendanceService attendanceService)
         {
             _gradeService = gradeService;
             _attendanceService = attendanceService;
+            _service = service;
+
         }
 
         [HttpGet]
@@ -63,6 +66,23 @@ namespace StudentAPI.Controllers
                 Grade = 2,
                 MonthlyAttendance = attendance
             });
+        }
+
+        [HttpGet]
+        public async Task<List<Student>> Get()
+        => await _service.GetStudentsAsync();
+
+        [HttpGet]
+        [Route("{ids}/{name}")]
+        public async Task<Student?> GetS(int ids,string name)
+            => await _service.GetStudentByIdAsync(ids);
+
+        // NEW: Simulate update + cache reset
+        [HttpPut("refresh")]
+        public IActionResult RefreshCache()
+        {
+            _service.InvalidateCache();
+            return Ok("Cache invalidated!");
         }
 
         public static Guid IntToHashedGuid(int value)

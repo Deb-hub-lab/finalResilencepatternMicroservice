@@ -17,7 +17,7 @@
             {
                 response = await _client.GetAsync($"2015/11");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 throw;

@@ -14,10 +14,18 @@ namespace StudentAPI.Middleware
         {
 
 
+            //services.AddHttpClient<IGradeService, GradeService>(options =>
+            //{
+            //    options.BaseAddress = new Uri(Configuration["GradeApiConfig:BaseUrl"]);
+            //})
+            var baseUrl = Configuration["GradeApiConfig:BaseUrl"]
+    ?? throw new InvalidOperationException("GradeApiConfig:BaseUrl is missing.");
+
             services.AddHttpClient<IGradeService, GradeService>(options =>
             {
-                options.BaseAddress = new Uri(Configuration["GradeApiConfig:BaseUrl"]);
+                options.BaseAddress = new Uri(baseUrl);
             })
+
             .AddPolicyHandler(GetFallbackPolicy())
             .AddPolicyHandler(GetRetryPolicy())
             .AddPolicyHandler(GetCircuitBreakerPolicy());
@@ -27,9 +35,16 @@ namespace StudentAPI.Middleware
             // -------------------------------
             // 2️⃣ Attendance API (New)
             // -------------------------------
+            //services.AddHttpClient<IAttendanceService, AttendanceService>(options =>
+            //{
+            //    options.BaseAddress = new Uri(Configuration["AttendanceApiConfig:BaseUrl"]);
+            //})
+            var attendanceBaseUrl = Configuration["AttendanceApiConfig:BaseUrl"]
+    ?? throw new InvalidOperationException("AttendanceApiConfig:BaseUrl is missing.");
+
             services.AddHttpClient<IAttendanceService, AttendanceService>(options =>
             {
-                options.BaseAddress = new Uri(Configuration["AttendanceApiConfig:BaseUrl"]);
+                options.BaseAddress = new Uri(attendanceBaseUrl);
             })
             .AddPolicyHandler(GetAttendanceFallbackPolicy())      // different fallback is OK
             .AddPolicyHandler(GetRetryPolicy())
